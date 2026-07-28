@@ -1,16 +1,26 @@
 import api from '@/clients/axios';
-import { ref } from 'vue';
+import { usePostsStore } from '@/stores/allPosts';
 
 export const usePosts = () => {
-  const posts = ref([]);
   const getPosts = async () => {
     const response = await api.get('/posts');
-    posts.value = response.data;
+    usePostsStore().setPosts(response.data);
+  }
+
+  const getPostById = async (id: number) => {
+    const response = await api.get(`/posts/${id}`);
+    return response.data;
+  }
+
+  const getCommentsByPostId = async (postId: number) => {
+    const response = await api.get(`/posts/${postId}/comments`);
+    return response.data;
   }
 
   return {
-    posts,
-    getPosts
+    getPosts,
+    getPostById,
+    getCommentsByPostId
   }
 }
 
