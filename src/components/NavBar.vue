@@ -11,6 +11,9 @@ import { RouterLink } from 'vue-router';
         <li>
           <RouterLink to="/countdown">Countdown</RouterLink>
         </li>
+        <li>
+          <RouterLink to="/posts">Posts</RouterLink>
+        </li>
     </ul>
   </nav>
 </template>

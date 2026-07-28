@@ -1,7 +1,10 @@
 <script setup>
-import { ref, computed, onUnmounted } from 'vue';
+import { computed } from 'vue';
 
-let timer = ref(null);
+const props = defineProps({
+  seconds: Number
+});
+
 function formatRemainingSeconds(totalSeconds) {
   let s = Math.max(0, Math.floor(totalSeconds));
   const days = Math.floor(s / 86400);
@@ -17,36 +20,13 @@ function formatRemainingSeconds(totalSeconds) {
 }
 
 let timerDisplay = computed(() => {
-  if (timer.value == null) return '00d 00h 00m 00s';
-  return formatRemainingSeconds(timer.value);
+  if (props.seconds == null) return '00d 00h 00m 00s';
+  return formatRemainingSeconds(props.seconds);
 });
-let date = null;
-let interval = null;
 
-const startTimer = () => {
-  interval = setInterval(() => {
-    const unix = new Date(date).getTime() / 1000;
-    const now = Math.floor(Date.now() / 1000);
-    const diff = unix - now;
-    if (diff < 0) {
-      clearInterval(interval);
-      return;
-    }
-    timer.value = diff;
-  }, 1000)
-}
-
-onUnmounted(() => {
-  clearInterval(interval);
-});
 </script>
 
 <template>
-    <div>
-        <h1>Count Down Timer</h1>
-        <input type="date" v-model="date" />
-        <button @click="startTimer">Start</button>
-    </div>
     <div class="countdown-display">
       {{ timerDisplay }}
     </div>

@@ -1,13 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import CountDownTimer from '../components/CountDownTimer.vue'
-import Home from '../components/Home.vue'
+import Home from '../pages/home.vue';
+import CountDown from '../pages/count-down.vue';
+import Posts from '../pages/posts.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/countdown',
-      component: CountDownTimer
+      component: CountDown
+    },
+    {
+      path: '/posts',
+      component: Posts
     },
     {
       path: '/',
